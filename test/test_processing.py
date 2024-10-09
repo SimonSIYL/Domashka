@@ -1,5 +1,3 @@
-from typing import Any
-
 def filter_by_state(data: list[dict], state: str = "EXECUTED") -> list[dict]:
     """
     Функция фильтрует список словарей по значению ключа 'state'.
