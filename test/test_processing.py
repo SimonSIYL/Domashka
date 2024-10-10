@@ -1,10 +1,8 @@
-
 def filter_by_state(data: list[dict], state: str = "EXECUTED") -> list[dict]:
     """
     Функция фильтрует список словарей по значению ключа 'state'.
     """
     return [item for item in data if item["state"] == state]
-
 
 def sort_by_date(data: list[dict], reverse: bool = True) -> list[dict]:
     """
@@ -23,7 +21,6 @@ list_of_dicts = [
     {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
 ]
 
-filtered_list_of_dicts = filter_by_state(list_of_dicts)
-filtered_list_of_dicts_date = sort_by_date(list_of_dicts)
+filtered_list_of_dicts= filter_by_state(list_of_dicts)
+filtered_list_of_dicts= sort_by_date(list_of_dicts)
 print(filtered_list_of_dicts)
-print(filtered_list_of_dicts_date)

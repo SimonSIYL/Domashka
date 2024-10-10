@@ -26,15 +26,69 @@ def mask_account_card(type_and_number: str)-> str:
         return ".".join(date_slice[::1])"""
 
 
-from mask import get_mask_account, get_musk_card_numbers
+
+def get_mask_card_numbers(card_number: str) -> str:
+    # Пример маскировки номеров карт, заменяя все символы на "X", кроме последних 4-х цифр.
+    mask_length = len(card_number) - 4
+    return "X" * mask_length + card_number[-4:]
+
+from mask import get_mask_account
+
+def mask_account_card(card: str) -> str:
+    """Функция маскировки банковских карт и счетов"""
+    if card == "":
+        return ""
+    elif "Счет" in card:
+        return f"{card[:5]}**{card[-4:]}"
+    else:
+        return f"{card[:-12]} {card[-12:-10]}** **** {card[-4:]}"
+
+
+def get_date(date: str) -> str:
+    """Функция переводит записанную дату в короткий читаемый вариант"""
+    if date == "":
+        return ""
+    return f"{date[8:10]}.{date[5:7]}.{date[0:4]}"
+
+print(mask_account_card("Maestro 1596837868705199"))
+print(mask_account_card("Счет 64686473678894779589"))
+print(mask_account_card("MasterCard 7158300734726758"))
+print(mask_account_card("Visa Classic 6831982476737658"))
+print((mask_account_card("Visa Gold 5999414228426353")))
+
+def get_date(date_string):
+    # Разделяем строку по символу 'T' и берем первую часть
+    date_part = date_string.split("T")[0]
+    # Разделяем дату по символу '-'
+    year, month, day = date_part.split("-")
+    # Формируем строку в нужном формате
+    return f"{day}.{month}.{year}"
+
+date_input = "2024-03-11T02:26:18.671407"
+formatted_date = get_date(date_input)
+print(formatted_date)
+
+
+"""def get_mask_card_number(card_number: str) -> str:
+    # Маскируем все, кроме последних 4 цифр
+    if len(card_number) > 4:
+        return "*" * (len(card_number) - 4) + card_number[-4:]
+    return card_number
+
+
+def get_mask_account(account_number: str) -> str:
+    # Маскируем все, кроме последних 4 цифр
+    if len(account_number) > 4:
+        return "*" * (len(account_number) - 4) + account_number[-4:]
+    return account_number
 
 
 def mask_account_card(account_info):
     if "Visa" in account_info or "Maestro" in account_info:
         # Извлечение номера карты
         card_number = account_info.split()[-1]
-        return account_info.replace(card_number, get_musk_card_numbers(card_number))
-    elif "Счет" in account_info:
+        return account_info.replace(card_number, get_mask_card_number(card_number))
+    elif "Счет" в account_info:
         # Извлечение номера счета
         account_number = account_info.split()[-1]
         return account_info.replace(account_number, get_mask_account(account_number))
@@ -60,4 +114,4 @@ def get_date(date_string):
 
 date_input = "2024-03-11T02:26:18.671407"
 formatted_date = get_date(date_input)
-print(formatted_date)
+print(formatted_date) """
