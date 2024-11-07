@@ -1,6 +1,6 @@
-import unittest
 import os
 import json
+import unittest
 
 from unittest.mock import mock_open, patch
 from utils import load_finance_operations
